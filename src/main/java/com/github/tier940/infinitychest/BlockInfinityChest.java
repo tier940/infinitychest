@@ -13,6 +13,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -142,27 +144,35 @@ public class BlockInfinityChest extends Block {
     }
 
     @Override
-    public void breakBlock(World world, BlockPos pos, IBlockState state) {
-        TileEntity te = world.getTileEntity(pos);
-        if (te instanceof TileInfinityChest) {
-            TileInfinityChest chest = (TileInfinityChest) te;
-            spillContents(world, pos, chest);
-        }
-        super.breakBlock(world, pos, state);
-    }
-
-    private static void spillContents(World world, BlockPos pos, TileInfinityChest chest) {
-        while (!chest.isEmpty()) {
-            ItemStack drop = chest.extract(chest.getTemplate().getMaxStackSize());
-            if (drop.isEmpty()) break;
-            spawnAsEntity(world, pos, drop);
+    public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state,
+                             @Nullable TileEntity te, ItemStack tool) {
+        player.addStat(StatList.getBlockStats(this));
+        player.addExhaustion(0.005F);
+        if (!world.isRemote) {
+            spawnAsEntity(world, pos, buildDrop(te));
         }
     }
 
     @Override
-    public void getDrops(NonNullList<ItemStack> drops, net.minecraft.world.IBlockAccess world, BlockPos pos,
+    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos,
                          IBlockState state, int fortune) {
-        // Block itself drops normally; contents are handled in breakBlock so they survive harvest.
-        super.getDrops(drops, world, pos, state, fortune);
+        // explosions/pistons: TE is still present at call time
+        drops.add(buildDrop(world.getTileEntity(pos)));
+    }
+
+    private ItemStack buildDrop(@Nullable TileEntity te) {
+        ItemStack stack = new ItemStack(this);
+        if (!(te instanceof TileInfinityChest)) return stack;
+        TileInfinityChest chest = (TileInfinityChest) te;
+        if (chest.isEmpty()) return stack;
+        NBTTagCompound teTag = chest.writeToNBT(new NBTTagCompound());
+        teTag.removeTag("x");
+        teTag.removeTag("y");
+        teTag.removeTag("z");
+        teTag.removeTag("id");
+        NBTTagCompound stackTag = new NBTTagCompound();
+        stackTag.setTag("BlockEntityTag", teTag);
+        stack.setTagCompound(stackTag);
+        return stack;
     }
 }

@@ -9,3 +9,4 @@ gui.infinitychest.lc_count=%s LC
 message.infinitychest.empty=Empty
 
 tooltip.infinitychest.infinitychest.capacity=Capacity: %s items
+tooltip.infinitychest.infinitychest.stored=Contains: %s × %s

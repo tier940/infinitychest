@@ -12,8 +12,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.github.tier940.infinitychest.core.InfinityChestCoreModule;
 
-@Mod(modid = Tags.MODID, name = Tags.MODNAME, version = Tags.VERSION, useMetadata = true,
-        acceptedMinecraftVersions = "[1.12,1.13)")
+@Mod(modid = Tags.MODID,
+     name = Tags.MODNAME,
+     version = Tags.VERSION,
+     useMetadata = true,
+     acceptedMinecraftVersions = "[1.12,1.13)")
 @Mod.EventBusSubscriber(modid = Tags.MODID)
 public class InfinityChestMod {
 

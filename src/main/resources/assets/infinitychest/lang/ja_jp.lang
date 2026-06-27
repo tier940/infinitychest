@@ -9,3 +9,4 @@ gui.infinitychest.lc_count=%s LC
 message.infinitychest.empty=空です
 
 tooltip.infinitychest.infinitychest.capacity=容量: %s 個
+tooltip.infinitychest.infinitychest.stored=収納中: %s × %s
