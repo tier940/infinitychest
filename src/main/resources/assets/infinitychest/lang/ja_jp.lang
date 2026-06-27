@@ -1,0 +1,11 @@
+tile.infinitychest.infinitychest.name=無限チェスト
+
+gui.infinitychest.slot_in=入力
+gui.infinitychest.slot_out=出力
+gui.infinitychest.empty=空
+gui.infinitychest.item_count=%s 個
+gui.infinitychest.lc_count=%s LC
+
+message.infinitychest.empty=空です
+
+tooltip.infinitychest.infinitychest.capacity=容量: %s 個

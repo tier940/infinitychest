@@ -1,0 +1,12 @@
+[{
+    "modid": "${modid}",
+    "name": "${modname}",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "description": "Infinite-capacity chest block for Minecraft 1.12.2",
+    "authorList": ["tier940"],
+    "credits": "",
+    "url": "",
+    "updateJSON": "",
+    "logoFile": ""
+}]

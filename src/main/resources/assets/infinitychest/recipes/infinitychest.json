@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "OEO",
+        "ECE",
+        "OEO"
+    ],
+    "key": {
+        "O": { "item": "minecraft:obsidian" },
+        "E": { "item": "minecraft:ender_pearl" },
+        "C": { "item": "minecraft:chest" }
+    },
+    "result": {
+        "item": "infinitychest:infinitychest"
+    }
+}

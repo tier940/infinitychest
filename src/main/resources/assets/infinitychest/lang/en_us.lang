@@ -1,0 +1,11 @@
+tile.infinitychest.infinitychest.name=Infinity Chest
+
+gui.infinitychest.slot_in=IN
+gui.infinitychest.slot_out=OUT
+gui.infinitychest.empty=Empty
+gui.infinitychest.item_count=%s items
+gui.infinitychest.lc_count=%s LC
+
+message.infinitychest.empty=Empty
+
+tooltip.infinitychest.infinitychest.capacity=Capacity: %s items
