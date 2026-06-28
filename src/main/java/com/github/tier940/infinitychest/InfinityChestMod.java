@@ -24,7 +24,8 @@ import com.github.tier940.infinitychest.modules.Modules;
      name = Tags.MODNAME,
      version = Tags.VERSION,
      updateJSON = "https://forge.curseupdate.com/1590113/infinitychest",
-     dependencies = "required-after:" + Mods.Names.MIXINBOOTER + "@[10.6,);")
+     dependencies = "required-after:" + Mods.Names.MIXINBOOTER + "@[10.6,);" +
+             "required-after:" + Mods.Names.MODULRAUI)
 @Mod.EventBusSubscriber(modid = Tags.MODID)
 public class InfinityChestMod {
 
