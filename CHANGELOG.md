@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - **Internal stability improvements**
+    - Mod integration code has been reorganised to reduce the chance of conflicts with other mods.
 
 * * *
 
