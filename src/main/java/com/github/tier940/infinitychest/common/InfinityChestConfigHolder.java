@@ -1,6 +1,8 @@
-package com.github.tier940.infinitychest;
+package com.github.tier940.infinitychest.common;
 
 import net.minecraftforge.common.config.Config;
+
+import com.github.tier940.infinitychest.Tags;
 
 @Config.LangKey(Tags.MODID + ".config.infinitychest")
 @Config(modid = Tags.MODID, name = Tags.MODID + "/infinitychest", category = "InfinityChest")
