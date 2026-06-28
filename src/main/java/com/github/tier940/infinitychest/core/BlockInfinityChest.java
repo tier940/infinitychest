@@ -1,4 +1,4 @@
-package com.github.tier940.infinitychest;
+package com.github.tier940.infinitychest.core;
 
 import javax.annotation.Nullable;
 

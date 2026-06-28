@@ -1,0 +1,12 @@
+{
+  "package": "com.github.tier940.infinitychest.mixins.modularui",
+  "refmap": "mixins.infinitychest.refmap.json",
+  "target": "@env(DEFAULT)",
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "ModularContainerMixin"
+  ],
+  "server": [],
+  "client": []
+}

@@ -1,4 +1,4 @@
-package com.github.tier940.infinitychest.mixins;
+package com.github.tier940.infinitychest.mixins.modularui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
@@ -19,7 +19,7 @@ import com.github.tier940.infinitychest.slot.SingleStackTransferSlot;
  * transfer exactly once for those slots and return the result.
  */
 @Mixin(value = ModularContainer.class, remap = false)
-public abstract class MixinModularContainer {
+public abstract class ModularContainerMixin {
 
     @Inject(method = "handleQuickMove", at = @At("HEAD"), cancellable = true)
     private void lcCoreOneStackOnly(EntityPlayer player, int slotId, Slot fromSlot,

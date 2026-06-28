@@ -1,4 +1,4 @@
-package com.github.tier940.infinitychest;
+package com.github.tier940.infinitychest.core;
 
 import java.util.List;
 
@@ -12,6 +12,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import com.github.tier940.infinitychest.InfinityChestConfigHolder;
 
 public class ItemBlockInfinityChest extends ItemBlock {
 

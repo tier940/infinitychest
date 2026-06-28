@@ -1,4 +1,4 @@
-package com.github.tier940.infinitychest;
+package com.github.tier940.infinitychest.core;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,6 +30,8 @@ import com.cleanroommc.modularui.widgets.TextWidget;
 import com.cleanroommc.modularui.widgets.slot.ItemSlot;
 import com.cleanroommc.modularui.widgets.slot.ModularSlot;
 import com.cleanroommc.modularui.widgets.slot.SlotGroup;
+import com.github.tier940.infinitychest.InfinityChestConfigHolder;
+import com.github.tier940.infinitychest.Tags;
 import com.github.tier940.infinitychest.slot.SingleSlotInputView;
 import com.github.tier940.infinitychest.slot.SingleSlotOutputView;
 import com.github.tier940.infinitychest.slot.SingleStackModularSlot;
