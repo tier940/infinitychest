@@ -167,9 +167,16 @@ public class TileInfinityChest extends TileEntity implements IGuiHolder<PosGuiDa
         @Override
         public ItemStack getStackInSlot(int slot) {
             if (slot != 0 || isEmpty()) return ItemStack.EMPTY;
-            // Real count (clamped to int) so MUI's transferStackInSlot and Forge's isItemValid
-            // round-trip preserve the chest contents.
-            int visible = (int) Math.min(count, (long) Integer.MAX_VALUE);
+            int maxStack = template.getMaxStackSize();
+            // Cap the visible count so that hoppers (VanillaInventoryCodeHooks.isFull)
+            // never see count == maxStackSize while there is still room.
+            long room = InfinityChestConfigHolder.capacity - count;
+            int visible;
+            if (room > 0 && count >= maxStack) {
+                visible = maxStack - 1;
+            } else {
+                visible = (int) Math.min(count, (long) Integer.MAX_VALUE);
+            }
             ItemStack copy = template.copy();
             copy.setCount(visible);
             return copy;
@@ -260,7 +267,7 @@ public class TileInfinityChest extends TileEntity implements IGuiHolder<PosGuiDa
         // Two info lines to the right of the icon: template name and item count.
         panel.child(new TextWidget<>(IKey.dynamic(this::renderTemplateName)).pos(31, 9).size(140, 10));
         panel.child(new TextWidget<>(IKey.dynamic(this::renderItemCount)).pos(31, 19).size(140, 10));
-        panel.child(new TextWidget<>(IKey.dynamic(this::renderLcCount)).pos(31, 29).size(30, 10));
+        panel.child(new TextWidget<>(IKey.dynamic(this::renderLcCount)).pos(31, 29).size(140, 10));
 
         // IN slot — insert-only, always shows empty.
         ModularSlot inSlot = new SingleStackModularSlot(new SingleSlotInputView(handler), 0) {
