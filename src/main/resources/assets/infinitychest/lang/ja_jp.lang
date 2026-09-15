@@ -8,5 +8,10 @@ gui.infinitychest.lc_count=%s LC
 
 message.infinitychest.empty=空です
 
-tooltip.infinitychest.infinitychest.capacity=容量: %s 個
-tooltip.infinitychest.infinitychest.stored=収納中: %s × %s
+tooltip.infinitychest.infinitychest.empty=空
+tooltip.infinitychest.infinitychest.lc=%d LC
+
+tooltip.infinitychest.infinitychest.shift_hint=Shiftで使い方を表示
+tooltip.infinitychest.infinitychest.usage.right_click=右クリック(空手): GUI を開く
+tooltip.infinitychest.infinitychest.usage.right_click_holding=右クリック(アイテムを持って): 投入
+tooltip.infinitychest.infinitychest.usage.sneak_right_click=スニーク+右クリック: 1スタック抽出

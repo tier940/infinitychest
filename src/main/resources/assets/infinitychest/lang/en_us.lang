@@ -8,5 +8,10 @@ gui.infinitychest.lc_count=%s LC
 
 message.infinitychest.empty=Empty
 
-tooltip.infinitychest.infinitychest.capacity=Capacity: %s items
-tooltip.infinitychest.infinitychest.stored=Contains: %s × %s
+tooltip.infinitychest.infinitychest.empty=Empty
+tooltip.infinitychest.infinitychest.lc=%d LC
+
+tooltip.infinitychest.infinitychest.shift_hint=Hold Shift for usage
+tooltip.infinitychest.infinitychest.usage.right_click=Right-click (empty hand): Open GUI
+tooltip.infinitychest.infinitychest.usage.right_click_holding=Right-click (holding item): Insert
+tooltip.infinitychest.infinitychest.usage.sneak_right_click=Sneak+Right-click: Extract one stack
