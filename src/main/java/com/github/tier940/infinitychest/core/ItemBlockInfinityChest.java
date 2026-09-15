@@ -26,7 +26,8 @@ public class ItemBlockInfinityChest extends ItemBlock {
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         NBTTagCompound tag = stack.getTagCompound();
-        NBTTagCompound teTag = tag != null && tag.hasKey("BlockEntityTag") ? tag.getCompoundTag("BlockEntityTag") : null;
+        NBTTagCompound teTag = tag != null && tag.hasKey("BlockEntityTag") ? tag.getCompoundTag("BlockEntityTag") :
+                null;
         if (teTag == null || !teTag.hasKey("lc:template") || teTag.getLong("lc:count") <= 0) {
             return super.getItemStackDisplayName(stack);
         }
@@ -47,7 +48,8 @@ public class ItemBlockInfinityChest extends ItemBlock {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
         NBTTagCompound tag = stack.getTagCompound();
-        NBTTagCompound teTag = tag != null && tag.hasKey("BlockEntityTag") ? tag.getCompoundTag("BlockEntityTag") : null;
+        NBTTagCompound teTag = tag != null && tag.hasKey("BlockEntityTag") ? tag.getCompoundTag("BlockEntityTag") :
+                null;
         boolean hasContents = teTag != null && teTag.hasKey("lc:template") && teTag.getLong("lc:count") > 0;
 
         if (!hasContents) {
@@ -58,11 +60,13 @@ public class ItemBlockInfinityChest extends ItemBlock {
             tooltip.add(TextFormatting.WHITE + template.getDisplayName());
             tooltip.add(TextFormatting.YELLOW.toString() + count + TextFormatting.GRAY + " / " +
                     InfinityChestConfigHolder.capacity);
-            tooltip.add(TextFormatting.YELLOW + I18n.format("tooltip.infinitychest.infinitychest.lc", count / LcUnit.LC_SIZE));
+            tooltip.add(TextFormatting.YELLOW +
+                    I18n.format("tooltip.infinitychest.infinitychest.lc", count / LcUnit.LC_SIZE));
         }
 
         if (GuiScreen.isShiftKeyDown()) {
-            tooltip.add(TextFormatting.DARK_GRAY + I18n.format("tooltip.infinitychest.infinitychest.usage.right_click"));
+            tooltip.add(
+                    TextFormatting.DARK_GRAY + I18n.format("tooltip.infinitychest.infinitychest.usage.right_click"));
             tooltip.add(TextFormatting.DARK_GRAY +
                     I18n.format("tooltip.infinitychest.infinitychest.usage.right_click_holding"));
             tooltip.add(TextFormatting.DARK_GRAY +
