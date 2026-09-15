@@ -16,7 +16,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import com.cleanroommc.modularui.api.IGuiHolder;
@@ -167,16 +166,7 @@ public class TileInfinityChest extends TileEntity implements IGuiHolder<PosGuiDa
         @Override
         public ItemStack getStackInSlot(int slot) {
             if (slot != 0 || isEmpty()) return ItemStack.EMPTY;
-            int maxStack = template.getMaxStackSize();
-            // Cap the visible count so that hoppers (VanillaInventoryCodeHooks.isFull)
-            // never see count == maxStackSize while there is still room.
-            long room = InfinityChestConfigHolder.capacity - count;
-            int visible;
-            if (room > 0 && count >= maxStack) {
-                visible = maxStack - 1;
-            } else {
-                visible = (int) Math.min(count, (long) Integer.MAX_VALUE);
-            }
+            int visible = (int) Math.min(count, (long) Integer.MAX_VALUE);
             ItemStack copy = template.copy();
             copy.setCount(visible);
             return copy;
@@ -241,55 +231,6 @@ public class TileInfinityChest extends TileEntity implements IGuiHolder<PosGuiDa
         }
     }
 
-    /** Used by the block on destruction to spawn the held contents as stacks. */
-    public IItemHandler getItemHandler() {
-        return handler;
-    }
-
-    /**
-     * GUI-only view of {@link #handler} that reports the real count instead of the hopper-safe
-     * clamp {@link ItemHandler#getStackInSlot} applies. The clamp exists so hoppers never see
-     * {@code count == maxStackSize} while there is still room (Forge's isFull check would then
-     * refuse to insert), but it also made the icon/OUT slots visually stall at maxStackSize - 1
-     * once the chest held 64+ items. Only display reads need the real number; all mutation still
-     * goes through {@link #handler} unchanged.
-     */
-    private class GuiDisplayItemHandler implements IItemHandlerModifiable {
-
-        @Override
-        public int getSlots() {
-            return handler.getSlots();
-        }
-
-        @Override
-        public ItemStack getStackInSlot(int slot) {
-            if (slot != 0 || isEmpty()) return ItemStack.EMPTY;
-            ItemStack copy = template.copy();
-            copy.setCount((int) Math.min(count, (long) Integer.MAX_VALUE));
-            return copy;
-        }
-
-        @Override
-        public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-            return handler.insertItem(slot, stack, simulate);
-        }
-
-        @Override
-        public ItemStack extractItem(int slot, int amount, boolean simulate) {
-            return handler.extractItem(slot, amount, simulate);
-        }
-
-        @Override
-        public int getSlotLimit(int slot) {
-            return handler.getSlotLimit(slot);
-        }
-
-        @Override
-        public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
-            handler.setStackInSlot(slot, stack);
-        }
-    }
-
     @Override
     public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager, UISettings settings) {
         ModularPanel panel = ModularPanel.defaultPanel("infinitychest").size(176, 173);
@@ -299,8 +240,7 @@ public class TileInfinityChest extends TileEntity implements IGuiHolder<PosGuiDa
         syncManager.registerSlotGroup(group);
 
         // Read-only icon at the very top-left mirroring the stored template.
-        GuiDisplayItemHandler displayHandler = new GuiDisplayItemHandler();
-        ModularSlot iconSlot = new ModularSlot(displayHandler, 0) {
+        ModularSlot iconSlot = new ModularSlot(handler, 0) {
 
             @Override
             public int getSlotStackLimit() {
@@ -325,9 +265,8 @@ public class TileInfinityChest extends TileEntity implements IGuiHolder<PosGuiDa
         panel.child(new TextWidget<>(IKey.lang("gui.infinitychest.slot_in")).pos(116, 45).size(16, 8));
         panel.child(new ItemSlot().slot(inSlot).pos(116, 55));
 
-        // OUT slot — take-only, capped at one max-stack-size chunk. Reads through displayHandler
-        // so the visible count is not hopper-clamped; extraction still runs through handler.
-        ModularSlot outSlot = new SingleStackModularSlot(new SingleSlotOutputView(displayHandler), 0)
+        // OUT slot — take-only, capped at one max-stack-size chunk.
+        ModularSlot outSlot = new SingleStackModularSlot(new SingleSlotOutputView(handler), 0)
                 .ignoreMaxStackSize(true).slotGroup(group).canPut(false);
         panel.child(new TextWidget<>(IKey.lang("gui.infinitychest.slot_out")).pos(149, 45).size(20, 8));
         panel.child(new ItemSlot().slot(outSlot).pos(149, 55));
