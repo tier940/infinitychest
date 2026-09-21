@@ -13,8 +13,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
@@ -289,18 +287,15 @@ public class TileInfinityChest extends TileEntity implements IGuiHolder<PosGuiDa
         return new ModularScreen(Tags.MODID, mainPanel);
     }
 
-    @SideOnly(Side.CLIENT)
-    private String renderTemplateName() {
+    String renderTemplateName() {
         return isEmpty() ? I18n.format("gui.infinitychest.empty") : template.getDisplayName();
     }
 
-    @SideOnly(Side.CLIENT)
-    private String renderItemCount() {
+    String renderItemCount() {
         return I18n.format("gui.infinitychest.item_count", isEmpty() ? "0" : String.format("%,d", count));
     }
 
-    @SideOnly(Side.CLIENT)
-    private String renderLcCount() {
+    String renderLcCount() {
         return I18n.format("gui.infinitychest.lc_count", isEmpty() ? 0L : count / LcUnit.LC_SIZE);
     }
 }
